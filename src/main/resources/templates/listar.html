@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Listado de Productos</title>
+    </head>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #6a11cb, #2575fc);
+            margin: 0;
+            padding: 0;
+        }
+        h1 {
+            text-align: center;
+            color: white;
+            margin-top: 20px;
+        }
+        a {
+            background-color: #2575fc;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 4px;
+            display: inline-block;
+            margin: 20px;
+            transition: background-color 0.3s ease;
+        }
+        a:hover {
+            background-color: #6a11cb;
+        }
+        table {
+            width: 80%;
+            margin: 30px auto;
+            border-collapse: collapse;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        th, td {
+            padding: 12px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+        th {
+            background-color: #2575fc;
+            color: white;
+        }
+        td {
+            background-color: #f9f9f9;
+        }
+        tr:hover {
+            background-color: #f1f1f1;
+            transition: background-color 0.3s ease;
+        }
+        .actions a {
+            margin: 5px;
+            color: #2575fc;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        .actions a:hover {
+            color: #6a11cb;
+        }
+    </style>
+    <body>
+        <h1>Listado de Productos</h1>
+        <a href="/productos/nuevo">Agregar Producto</a>
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Categoría</th>
+                    <th>Fecha de Vencimiento</th>
+                    <th>Stock Mínimo</th>
+                    <th>Stock Máximo</th>
+                    <th>Marca</th>
+                    <th>Peso</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="producto : ${productos}">
+                    <td th:text="${producto.id}"></td>
+                    <td th:text="${producto.nombre}"></td>
+                    <td th:text="${producto.categoria}"></td>
+                    <td th:text="${producto.fechaVencimiento}"></td>
+                    <td th:text="${producto.stockMinimo}"></td>
+                    <td th:text="${producto.stockMaximo}"></td>
+                    <td th:text="${producto.marca}"></td>
+                    <td th:text="${producto.peso}"></td>
+                    <td>
+                        <a th:href="@{/productos/editar/{id}(id=${producto.id})}">Editar</a>
+                        <a th:href="@{/productos/eliminar/{id}(id=${producto.id})}" 
+                           onclick="return confirm('¿Seguro que deseas eliminar este producto?');">Eliminar</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

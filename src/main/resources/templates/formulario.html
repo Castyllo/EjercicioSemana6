@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Formulario de Producto</title>
+    </head>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #6a11cb, #2575fc);
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .form-container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 400px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .form-container:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        label {
+            font-size: 14px;
+            margin-bottom: 5px;
+            display: block;
+        }
+        input[type="text"],
+        input[type="number"],
+        input[type="date"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+            transition: border-color 0.3s ease;
+        }
+        input[type="text"]:focus,
+        input[type="number"]:focus,
+        input[type="date"]:focus {
+            border-color: #2575fc;
+            outline: none;
+        }
+        button {
+            background-color: #2575fc;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #6a11cb;
+        }
+        a {
+            color: #2575fc;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 10px;
+            font-size: 14px;
+            transition: color 0.3s ease;
+        }
+        a:hover {
+            color: #6a11cb;
+        }
+    </style>
+    <body>
+        <div class="form-container">
+            <h1 th:if="${producto.id == null}">Crear Producto</h1>
+            <h1 th:if="${producto.id != null}">Editar Producto</h1>
+            <form th:action="@{/productos}" th:object="${producto}" method="post">
+                <input type="hidden" th:field="*{id}" />
+                <label for="nombre">Nombre:</label>
+                <input type="text" id="nombre" th:field="*{nombre}" /><br/>
+
+                <label for="categoria">Categoría:</label>
+                <input type="text" id="categoria" th:field="*{categoria}" /><br/>
+
+                <label for="fechaVencimiento">Fecha de Vencimiento:</label>
+                <input type="date" id="fechaVencimiento" th:field="*{fechaVencimiento}" /><br/>
+
+                <label for="stockMinimo">Stock Mínimo:</label>
+                <input type="number" id="stockMinimo" th:field="*{stockMinimo}" /><br/>
+
+                <label for="stockMaximo">Stock Máximo:</label>
+                <input type="number" id="stockMaximo" th:field="*{stockMaximo}" /><br/>
+
+                <label for="marca">Marca:</label>
+                <input type="text" id="marca" th:field="*{marca}" /><br/>
+
+                <label for="peso">Peso:</label>
+                <input type="number" id="peso" step="0.01" th:field="*{peso}" /><br/>
+
+                <button type="submit">Guardar</button>
+                <a href="/productos">Cancelar</a>
+            </form>
+        </div>
+    </body>
+</html>
